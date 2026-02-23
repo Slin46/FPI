@@ -14,8 +14,8 @@ public class PlayerCam : MonoBehaviour
 
     void Update()
     {
-        // Only rotate when holding left mouse button
-        if (Input.GetMouseButton(0))
+        // Only rotate when holding right mouse button
+        if (Input.GetMouseButton(1))
         {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
