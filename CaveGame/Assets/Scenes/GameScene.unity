@@ -4047,7 +4047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cfdc640936e88409527d1b0dbb836b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCam
-  mouseSensitivity: 500
+  mouseSensitivity: 100
   playerBody: {fileID: 113555544}
 --- !u!114 &1520245285
 MonoBehaviour:
@@ -5762,7 +5762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cfdc640936e88409527d1b0dbb836b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCam
-  mouseSensitivity: 500
+  mouseSensitivity: 300
   playerBody: {fileID: 28587715}
 --- !u!81 &2096238719
 AudioListener:
