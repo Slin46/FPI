@@ -1918,7 +1918,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &884110153
 BoxCollider:
@@ -2193,6 +2193,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891334220}
   m_Mesh: {fileID: 2243948382184596990, guid: 81973d584b67a5846a669403eb779bc6, type: 3}
+--- !u!1 &957732510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 957732511}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &957732511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957732510}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.72, y: 1.37, z: 275.7}
+  m_LocalScale: {x: 1.6952193, y: 6.9726295, z: 1.3943241}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1008746245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,11 +2723,11 @@ MonoBehaviour:
   enemy: {fileID: 2078242518}
   radarLight: {fileID: 112775313}
   beepAudio: {fileID: 1104766502}
-  greenRange: 25
-  yellowRange: 15
-  orangeRange: 7
-  minBeepInterval: 0.2
-  maxBeepInterval: 2
+  greenRange: 100
+  yellowRange: 50
+  orangeRange: 25
+  minBeepInterval: 0.15
+  maxBeepInterval: 1.5
   currentAlertLevel: 0
 --- !u!82 &1104766502
 AudioSource:
@@ -2709,7 +2740,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: c33abb69c67b17145ac7de752101a6a1, type: 3}
+  m_Resource: {fileID: 8300000, guid: 36d715829cc4f8041be1b8ebebb8a304, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5435,6 +5466,7 @@ SceneRoots:
   - {fileID: 231084096}
   - {fileID: 101415173}
   - {fileID: 1095821657}
+  - {fileID: 957732511}
   - {fileID: 2078242518}
   - {fileID: 28587715}
   - {fileID: 1422768580}
