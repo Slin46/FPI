@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         float forwardSpeed = speed;
         bool movingForwardOrBack = Mathf.Abs(z) > 0.1f;
 
-        //sprint ith left/right shift and only for moving forward and backward
+        //sprint with left/right shift and only for moving forward and backward
         if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && movingForwardOrBack)
             forwardSpeed *= sprintMultiplier;
 
