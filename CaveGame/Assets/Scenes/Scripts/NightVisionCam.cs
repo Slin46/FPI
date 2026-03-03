@@ -14,6 +14,7 @@ public class NightVisionCam : MonoBehaviour
     public AudioSource flashAudio;
     public Camera scannerCam;
     public LayerMask paintingLayer;
+    public bool cameraFlash;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,6 +37,7 @@ public class NightVisionCam : MonoBehaviour
             Ray ray = scannerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
             flashAudio.Play();
+            cameraFlash = true;
             StartCoroutine(Flash());
             if (Physics.Raycast(ray, out hit, rayDistance, paintingLayer))
             {
@@ -78,6 +80,7 @@ public class NightVisionCam : MonoBehaviour
         lightFlash.intensity = 2f;
         yield return new WaitForSeconds(duration);
         lightFlash.intensity = 0f;
+        cameraFlash = false;
     }
     public void UpdatePhotoUI()
     {
