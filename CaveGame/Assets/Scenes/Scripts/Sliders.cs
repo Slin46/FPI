@@ -17,16 +17,13 @@ public class Sliders : MonoBehaviour
     public Slider sfxSlider;
     public Slider sensitivitySlider;
 
-    [Header("Mouse Settings")]
-    public static float mouseSensitivity = 320f;
-
     //save the settings when loading into game scene
     public static class PlayerSettings
     {
         public static float masterVolume = 0.5f;
         public static float musicVolume = 0.5f;
         public static float sfxVolume = 0.5f;
-        public static float mouseSensitivity = 320f;
+        public static float mouseSensitivity = 300f;
     }
 
     [Header("Audio Mixer")]
