@@ -83,5 +83,6 @@ public class Sliders : MonoBehaviour
         SetMusicVolume(PlayerSettings.musicVolume);
         SetSFXVolume(PlayerSettings.sfxVolume);
         SetSensitivity(PlayerSettings.mouseSensitivity);
+
     }
 }
