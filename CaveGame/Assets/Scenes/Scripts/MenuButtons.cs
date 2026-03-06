@@ -4,52 +4,85 @@ using UnityEngine.SceneManagement;
 public class MenuButtons : MonoBehaviour
 {
     public string firstSceneName = "GameScene"; // your first scene
+    public GameObject pauseMenuPanel;
+    public GameObject settingsPanel;
+
     public static class SceneHistory
     {
         //save the current scene name its on
         public static string previousScene = "";
     }
 
-    public GameObject settingsPanel;
+    void Update()
+    {
+        // Only check ESC if a pause menu exists
+        if (pauseMenuPanel != null && Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseMenu();
+        }
+    }
 
     public void STARTGAME()
     {
-       
+        // Make sure time is running and cursor is locked
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         // Load the first scene
         SceneManager.LoadScene(firstSceneName);
-    }
-
-    public void SETTINGS()
-    {
-        //after pressing rules the rules scene will load
-        SceneManager.LoadScene("Rules");
     }
 
     //open up settings panel
     public void ToggleSettingsPanel()
     {
+        if (settingsPanel == null) return;
+
+        // Toggle settings panel visibility
         settingsPanel.SetActive(!settingsPanel.activeSelf);
-    }
 
-    public void OpenRules()
-    {
-        //save current scene
-        SceneHistory.previousScene = SceneManager.GetActiveScene().name;
-
-        //load rules scene
-        SceneManager.LoadScene("Rules");
-    }
-    public void Back()
-    {
-        //go back to previous scene else start scene
-        if (!string.IsNullOrEmpty(SceneHistory.previousScene))
+        // If a pause menu exists and is active, hide it
+        if (pauseMenuPanel != null && pauseMenuPanel.activeSelf)
         {
-            SceneManager.LoadScene(SceneHistory.previousScene);
+            pauseMenuPanel.SetActive(false);
+        }
+    }
+
+    public void TogglePauseMenu()
+    {
+        // If pause menu exists
+        if (pauseMenuPanel == null) return;
+
+        // If pause menu is currently active, close both pause menu and settings panel
+        if (pauseMenuPanel.activeSelf)
+        {
+            pauseMenuPanel.SetActive(false);
+
+            if (settingsPanel != null)
+                settingsPanel.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1f;
         }
         else
         {
-            SceneManager.LoadScene("StartScreen");
+            // Pause menu is not active, open it
+            pauseMenuPanel.SetActive(true);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0f;
         }
+    }
+
+    public void RETURN()
+    {
+        // Hide settings panel
+        settingsPanel.SetActive(false);
+
+        // Show pause menu again
+        pauseMenuPanel.SetActive(true);
     }
 
     public void EXIT()
@@ -59,13 +92,18 @@ public class MenuButtons : MonoBehaviour
         Debug.Log("Game is quitting...");
     }
 
-    public void NEWGAME()
+    public void STARTOVER()
     {
-        //destroy everything
+        // Reset everything
+        Time.timeScale = 1f;
+       
+
+        // Clear previous scene history
         SceneHistory.previousScene = "";
 
-        //restarts game
+        // Load first scene (restart game)
         SceneManager.LoadScene(0);
+
         Debug.Log("Restarting...");
 
     }

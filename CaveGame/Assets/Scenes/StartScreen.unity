@@ -241,7 +241,7 @@ MonoBehaviour:
   m_MinValue: 50
   m_MaxValue: 500
   m_WholeNumbers: 0
-  m_Value: 50
+  m_Value: 320
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -289,8 +289,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1115105146}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -364,8 +364,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 887697972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -439,8 +439,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2008740366}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.6, y: 0}
+  m_AnchorMax: {x: 0.6, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -583,10 +583,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c32985d4b29447408c7ebfef6f86b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sliders
+  masterText: {fileID: 410072587}
   musicText: {fileID: 1502827609}
   sfxText: {fileID: 1693998162}
   sensitivityText: {fileID: 1171998323}
-  volumeText: {fileID: 410072587}
+  masterSlider: {fileID: 369501496}
+  musicSlider: {fileID: 544194050}
+  sfxSlider: {fileID: 968632266}
+  sensitivitySlider: {fileID: 170277855}
+  mixer: {fileID: 0}
 --- !u!4 &331022111
 Transform:
   m_ObjectHideFlags: 0
@@ -634,8 +639,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 412874842}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -763,25 +768,13 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 331022110}
         m_TargetAssemblyTypeName: Sliders, Assembly-CSharp
-        m_MethodName: SetVolume
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 331022110}
-        m_TargetAssemblyTypeName: Sliders, Assembly-CSharp
-        m_MethodName: UpdateVolume
+        m_MethodName: SetMasterVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1089,7 +1082,7 @@ RectTransform:
   m_Father: {fileID: 301175810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0.6, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1493,13 +1486,13 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 331022110}
         m_TargetAssemblyTypeName: Sliders, Assembly-CSharp
-        m_MethodName: SetMusic
+        m_MethodName: SetMusicVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1542,7 +1535,7 @@ RectTransform:
   m_Father: {fileID: 5838782}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1948,6 +1941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuButtons
   firstSceneName: GameScene
+  pauseMenuPanel: {fileID: 0}
   settingsPanel: {fileID: 1988048146}
 --- !u!1 &861679268
 GameObject:
@@ -2332,6 +2326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuButtons
   firstSceneName: GameScene
+  pauseMenuPanel: {fileID: 0}
   settingsPanel: {fileID: 0}
 --- !u!1 &968632264
 GameObject:
@@ -2419,13 +2414,13 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 331022110}
         m_TargetAssemblyTypeName: Sliders, Assembly-CSharp
-        m_MethodName: SetSFX
+        m_MethodName: SetSFXVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2822,7 +2817,7 @@ RectTransform:
   m_Father: {fileID: 300454912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2972,7 +2967,7 @@ RectTransform:
   m_Father: {fileID: 1833595117}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3361,6 +3356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuButtons
   firstSceneName: GameScene
+  pauseMenuPanel: {fileID: 0}
   settingsPanel: {fileID: 0}
 --- !u!1 &1567254324
 GameObject:
