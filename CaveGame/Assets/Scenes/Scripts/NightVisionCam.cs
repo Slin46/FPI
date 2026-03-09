@@ -15,6 +15,9 @@ public class NightVisionCam : MonoBehaviour
     public Camera scannerCam;
     public LayerMask paintingLayer;
     public bool cameraFlash;
+    public float cameraCooldown = 1.5f;
+    private bool canTakePhoto = true;
+    public Vector3 flashPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,16 +32,21 @@ public class NightVisionCam : MonoBehaviour
 
     public void TakePhoto()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && canTakePhoto)
         {
+            StartCoroutine(CameraCooldown());
             //Debug.DrawLine();
             Debug.Log("Pressed camera button");
+            flashPosition = transform.position; // where the sound came from
             //raycast from the camera's position forward
             Ray ray = scannerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
             flashAudio.Play();
-            cameraFlash = true;
-            StartCoroutine(Flash());
+            //cameraFlash = true;
+            if(!cameraFlash)
+            {
+                StartCoroutine(Flash());
+            }
             if (Physics.Raycast(ray, out hit, rayDistance, paintingLayer))
             {
                 Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.red, 2f);
@@ -85,5 +93,12 @@ public class NightVisionCam : MonoBehaviour
     public void UpdatePhotoUI()
     {
         photoCounter.text = ": " + photosTaken.ToString() + "/5";
+    }
+
+    IEnumerator CameraCooldown()
+    {
+        canTakePhoto = false;
+        yield return new WaitForSeconds(cameraCooldown);
+        canTakePhoto = true;
     }
 }

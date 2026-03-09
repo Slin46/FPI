@@ -18,27 +18,48 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
+    bool isSprinting;
+
+    private AudioSource walking;
+    private AudioSource running;
+
+    /*private void Awake()
+    {
+        AudioSource[] footsteps = GetComponents<AudioSource>();
+        walking = footsteps[0];
+        running = footsteps[1];
+
+        walking.loop=true;
+        running.loop=true;
+    }*/
 
     void Update()
     {
         //ground check
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
+        isSprinting = false; // reset every frame
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f; // keeps player grounded
+            
         }
 
         //movement
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
+        bool isMoving = Mathf.Abs(x) > 0.1f || Mathf.Abs(z) > 0.1f;
+
         float forwardSpeed = speed;
         bool movingForwardOrBack = Mathf.Abs(z) > 0.1f;
 
         //sprint with left/right shift and only for moving forward and backward
+
         if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && movingForwardOrBack)
+        {
             forwardSpeed *= sprintMultiplier;
+            isSprinting = true;
+        }
 
         // Apply different speeds
         Vector3 move =
@@ -46,6 +67,33 @@ public class PlayerMovement : MonoBehaviour
             transform.forward * z * forwardSpeed;   // forward/back sprint speed
 
         controller.Move(move * Time.deltaTime);
+
+        //Footstep audio
+        /*if (isGrounded && isMoving)
+        {
+            if(isSprinting)
+            {
+                if(!running.isPlaying)
+                {
+                    walking.Stop();
+                    running.Play();
+                }
+            }
+            else
+            {
+                if (!walking.isPlaying)
+                {
+                    running.Stop();
+                    walking.Play();
+                }
+
+            }
+        }
+        else
+        {
+            walking.Pause();
+            running.Pause();
+        }*/
 
         // jump using space key
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
