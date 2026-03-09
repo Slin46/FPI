@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Cave Painting
+  - Camera
   layers:
   - Default
   - TransparentFX
