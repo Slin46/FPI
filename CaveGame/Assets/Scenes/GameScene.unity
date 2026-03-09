@@ -6397,11 +6397,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c638fa799eef344438b426375275d60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  speed: 6
+  speed: 6.5
   sprintMultiplier: 1.5
   jumpHeight: 1
   gravity: -15
-  fallMultiplier: 2.5
+  fallMultiplier: 2
   controller: {fileID: 818736854}
   groundCheck: {fileID: 30543620}
   groundDistance: 0.4
@@ -10801,13 +10801,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InstructionTexts
   instructionText: {fileID: 0}
   canvasGroup: {fileID: 0}
-  visibleTime: 4
-  fadeTime: 1.5
+  visibleTime: 3
+  fadeTime: 2
   instructions: []
   controlsText: {fileID: 1305409089}
   controlsCanvasGroup: {fileID: 1305409088}
   controlsVisibleTime: 40
-  controlsFadeTime: 5
+  controlsFadeTime: 2
 --- !u!225 &1305409088
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -94909,7 +94909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InstructionTexts
   instructionText: {fileID: 1807363940}
   canvasGroup: {fileID: 1807363939}
-  visibleTime: 4
+  visibleTime: 3
   fadeTime: 2
   instructions:
   - YOU ARE A CAVE ARCHAEOLOGIST
