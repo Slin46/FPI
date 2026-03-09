@@ -12,7 +12,7 @@ public class GuardAI : MonoBehaviour
 
     [Header("References")]
     public Transform player;
-    //public NightVisionCam camScript;
+    public NightVisionCam camScript;
 
     [Header("Detection")]
     public float detectionRange = 10f;
@@ -64,7 +64,7 @@ public class GuardAI : MonoBehaviour
 
             case AIState.Stalk:
                 UpdateStalk();
-                //Debug.Log("In Stalk");
+                Debug.Log("In Stalk");
                 break;
         }
     }
@@ -81,7 +81,7 @@ public class GuardAI : MonoBehaviour
             return;
         }
 
-        if (DistanceToPlayer() <= soundRange)//camScript.cameraFlash && DistanceToPlayer() <= soundRange)
+        if (camScript.cameraFlash && Vector3.Distance(transform.position, camScript.flashPosition) <= soundRange)
         {
             ChangeState(AIState.Stalk);
             return;
@@ -147,15 +147,17 @@ public class GuardAI : MonoBehaviour
         //follow player slowly instead of random patrol
         //if player gets out of range go back to patroling 
         //if players gets withing vision go to chase
-       
-        if (!CanSeePlayer() && DistanceToPlayer() > losePlayerRange)
-        {
-            ChangeState(AIState.Patrol);
-        }
+        agent.SetDestination(camScript.flashPosition);
+
         if (CanSeePlayer())
         {
             ChangeState(AIState.Chase);
             return;
+        }
+
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            ChangeState(AIState.Patrol);
         }
 
     }
