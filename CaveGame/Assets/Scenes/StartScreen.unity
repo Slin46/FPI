@@ -2235,8 +2235,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: START GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4cf0368cd9f56e343948d1b286d3e75f, type: 2}
-  m_sharedMaterial: {fileID: 1956753406215783388, guid: 4cf0368cd9f56e343948d1b286d3e75f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c6ec050cb8c47004f9d7bb88d7b1e0e3, type: 2}
+  m_sharedMaterial: {fileID: 5838329800402996492, guid: c6ec050cb8c47004f9d7bb88d7b1e0e3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
