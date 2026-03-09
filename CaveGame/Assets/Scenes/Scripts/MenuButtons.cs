@@ -30,7 +30,7 @@ public class MenuButtons : MonoBehaviour
         Cursor.visible = false;
 
         // Load the first scene
-        SceneManager.LoadScene(firstSceneName);
+        SceneManager.LoadScene("Advice");
     }
 
     //open up settings panel

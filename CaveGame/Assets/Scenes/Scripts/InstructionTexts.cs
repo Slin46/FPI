@@ -5,9 +5,8 @@ using UnityEngine;
 public class InstructionTexts : MonoBehaviour
 {
     public TMP_Text instructionText;
-    public CanvasGroup canvasGroup;
+    public CanvasGroup dialogueCanvasGroup;
 
-    public float visibleTime = 5f;
     public float fadeTime = 2f;
 
     public string[] instructions; // list of texts
@@ -16,6 +15,7 @@ public class InstructionTexts : MonoBehaviour
     public CanvasGroup controlsCanvasGroup;
     public float controlsVisibleTime = 20f; // how long controls stay
     public float controlsFadeTime = 1f;    // fade duration
+    public TMP_Text continuePrompt;
 
     void Start()
     {
@@ -37,23 +37,21 @@ public class InstructionTexts : MonoBehaviour
     {
         instructionText.text = message;
 
-        // show text
-        canvasGroup.alpha = 1;
+        // show everything
+        dialogueCanvasGroup.alpha = 1;
 
-        yield return new WaitForSeconds(visibleTime);
+        // Wait for player to press E
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
 
+        // fade out container
         float timer = 0f;
-
         while (timer < fadeTime)
         {
             timer += Time.deltaTime;
-            canvasGroup.alpha = 1 - (timer / fadeTime);
+            dialogueCanvasGroup.alpha = 1 - (timer / fadeTime);
             yield return null;
         }
-
-        canvasGroup.alpha = 0;
-
-        yield return new WaitForSeconds(1f);
+        dialogueCanvasGroup.alpha = 0;
     }
     IEnumerator ShowControls()
     {

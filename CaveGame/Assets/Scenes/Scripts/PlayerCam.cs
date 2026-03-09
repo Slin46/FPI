@@ -19,24 +19,23 @@ public class PlayerCam : MonoBehaviour
 
     void Update()
     {
-        //player camera is linked to mouse movement
-        //click on game scene to hide mouse
-        //press esc on keyboard to get mouse back
-        if(Cursor.lockState == CursorLockMode.Locked)
+        // Only move camera if mouse is locked
+        if (Cursor.lockState == CursorLockMode.Locked)
         {
-            //delaying the mouse input so that the player doesn't stare at ground when game starts
-         timer += Time.deltaTime;
-         if (timer < inputDelay) return;
+            timer += Time.deltaTime;
+            if (timer < inputDelay) return;
 
-         float mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity * Time.deltaTime;
-         float mouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            // Use the value from PlayerSettings
+            float currentSensitivity = Sliders.PlayerSettings.mouseSensitivity;
 
-         xRotation -= mouseY;
-         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            float mouseX = Input.GetAxisRaw("Mouse X") * currentSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * currentSensitivity * Time.deltaTime;
 
-         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-         playerBody.Rotate(Vector3.up * mouseX);
-         //Debug.Log(Input.GetAxisRaw("Mouse X"));
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            playerBody.Rotate(Vector3.up * mouseX);
         }
     }
 }
