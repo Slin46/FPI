@@ -6,6 +6,8 @@ public class MenuButtons : MonoBehaviour
     public string firstSceneName = "GameScene"; // your first scene
     public GameObject pauseMenuPanel;
     public GameObject settingsPanel;
+    public GameObject controlsPanel;
+   
 
     public static class SceneHistory
     {
@@ -75,7 +77,20 @@ public class MenuButtons : MonoBehaviour
             Time.timeScale = 0f;
         }
     }
+    //open up settings panel
+    public void ToggleControlsPanel()
+    {
+        if (controlsPanel == null) return;
 
+        // Toggle settings panel visibility
+        controlsPanel.SetActive(!controlsPanel.activeSelf);
+
+        // If a pause menu exists and is active, hide it
+        if (pauseMenuPanel != null && pauseMenuPanel.activeSelf)
+        {
+            pauseMenuPanel.SetActive(false);
+        }
+    }
     public void RETURN()
     {
         // Hide settings panel
