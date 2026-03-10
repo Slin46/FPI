@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class GuardAI : MonoBehaviour
 {
@@ -39,17 +42,32 @@ public class GuardAI : MonoBehaviour
 
     private float idleTimer;
     private Vector3 lastDestination;
+    public Animator anim;
+
+    [Header("Bools")]
+    //public bool isIdle = false;
+    public bool isWalking = false;
+    public bool isRunning = false;
+    public bool isRoar = false;
+
+    [Header("Roar Settings")]
+    private float roarDuration = 4f;
+    private bool isRoaring = false;
+    public AudioSource roarSound;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         ChangeState(AIState.Patrol);
+        anim = GetComponent<Animator>();
         //GameObject Ncam = GameObject.FindGameObjectWithTag("Camera");
         //NightVisionCam camScript = Ncam.GetComponent<NightVisionCam>();
     }
 
     void Update()
     {
+        if (isRoaring)
+            return;
         switch (currentState)
         {
             case AIState.Patrol:
@@ -75,9 +93,9 @@ public class GuardAI : MonoBehaviour
 
     void UpdatePatrol()
     {
-        if (CanSeePlayer())
+        if (CanSeePlayer() && !isRoaring)
         {
-            ChangeState(AIState.Chase);
+            StartCoroutine(RoarThenChase());
             return;
         }
 
@@ -89,6 +107,7 @@ public class GuardAI : MonoBehaviour
         //if destination is reached pick a new random one
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
+            anim.SetBool("isWalking", false);
             idleTimer -= Time.deltaTime;
 
             if (idleTimer <= 0f)
@@ -99,8 +118,27 @@ public class GuardAI : MonoBehaviour
 
         }
     }
+    IEnumerator RoarThenChase()
+    {
+        isRoaring = true;
+        agent.isStopped = true;
+
+        anim.SetBool("isWalking", false);
+        anim.SetBool("isRunning", false);
+        anim.SetBool("isRoar", true);
+
+        roarSound.Play();
+
+        yield return new WaitForSeconds(roarDuration);
+        anim.SetBool("isRoar", false);
+        agent.isStopped = false;
+
+        ChangeState(AIState.Chase);
+        isRoaring = false;
+    }
     void Wander()
     {
+        anim.SetBool("isWalking", true);
         for (int i = 0; i < 15; i++)
         {
             // Bias movement forward instead of fully random
@@ -133,10 +171,13 @@ public class GuardAI : MonoBehaviour
    
     void UpdateChase()
     {
+        anim.SetBool("isRunning", true);
+        anim.SetBool("isWalking", false);
         agent.SetDestination(player.position);
 
         if (!CanSeePlayer() && DistanceToPlayer() > losePlayerRange)
         {
+            anim.SetBool("isWalking", true);
             ChangeState(AIState.Patrol);
         }
     }
@@ -194,5 +235,19 @@ public class GuardAI : MonoBehaviour
     float DistanceToPlayer()
     {
         return Vector3.Distance(transform.position, player.position);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            //freeze player
+            //turn to face monster 
+            //play monster roar
+            Debug.Log("Player caught, loading end screen");
+            //Load EndScreen
+            SceneManager.LoadScene("EndScreen");
+
+        }
     }
 }
