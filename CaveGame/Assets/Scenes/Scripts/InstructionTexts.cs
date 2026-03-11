@@ -19,6 +19,9 @@ public class InstructionTexts : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0f;
         StartCoroutine(PlayInstructions());
         // Show controls
         if (controlsText != null && controlsCanvasGroup != null)

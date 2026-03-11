@@ -118,6 +118,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject == BarrierWall)
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0f;
+
             //Load EndScreen
             SceneManager.LoadScene("EndScreen");
         }
