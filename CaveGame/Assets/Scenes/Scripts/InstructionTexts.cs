@@ -10,19 +10,25 @@ public class InstructionTexts : MonoBehaviour
     public float fadeTime = 2f;
 
     public string[] instructions; // list of texts
-
-    public TMP_Text controlsText;
+    
     public CanvasGroup controlsCanvasGroup;
-    public float controlsVisibleTime = 20f; // how long controls stay
+    public float controlsVisibleTime = 10f; // how long controls stay
     public float controlsFadeTime = 1f;    // fade duration
     public TMP_Text continuePrompt;
-
+    void Awake()
+    {
+        if (controlsCanvasGroup != null)
+        {
+            controlsCanvasGroup.alpha = 0;
+            controlsCanvasGroup.gameObject.SetActive(false);
+        }
+    }
     void Start()
     {
+        // Pause the game
+        Time.timeScale = 0f;
+
         StartCoroutine(PlayInstructions());
-        // Show controls
-        if (controlsText != null && controlsCanvasGroup != null)
-            StartCoroutine(ShowControls());
     }
 
     IEnumerator PlayInstructions()
@@ -31,6 +37,16 @@ public class InstructionTexts : MonoBehaviour
         {
             yield return StartCoroutine(ShowInstructionRoutine(message));
         }
+
+        // Resume the game
+        Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        // Show controls AFTER instructions
+        if (controlsCanvasGroup != null)
+            yield return StartCoroutine(ShowControls());
     }
 
     IEnumerator ShowInstructionRoutine(string message)
@@ -43,11 +59,10 @@ public class InstructionTexts : MonoBehaviour
         // Wait for player to press E
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
 
-        // fade out container
         float timer = 0f;
         while (timer < fadeTime)
         {
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
             dialogueCanvasGroup.alpha = 1 - (timer / fadeTime);
             yield return null;
         }
@@ -56,15 +71,16 @@ public class InstructionTexts : MonoBehaviour
  
     IEnumerator ShowControls()
     {
-        // make sure it's visible first
+        controlsCanvasGroup.gameObject.SetActive(true);
         controlsCanvasGroup.alpha = 1;
 
-        yield return new WaitForSeconds(controlsVisibleTime);
+        yield return new WaitForSecondsRealtime(controlsVisibleTime);
 
         float timer = 0f;
+
         while (timer < controlsFadeTime)
         {
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
             controlsCanvasGroup.alpha = 1 - (timer / controlsFadeTime);
             yield return null;
         }

@@ -33280,6 +33280,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377283654}
   m_Mesh: {fileID: -5909408016839688256, guid: 81973d584b67a5846a669403eb779bc6, type: 3}
+--- !u!1 &451310113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 451310114}
+  m_Layer: 0
+  m_Name: GameManage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &451310114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451310113}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 537.2538, y: 0.00001, z: 3566.5618}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &457277548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71892,7 +71923,7 @@ RectTransform:
   - {fileID: 938884804}
   - {fileID: 472834615}
   - {fileID: 1676671793}
-  - {fileID: 1305409086}
+  - {fileID: 1913999972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -122403,8 +122434,6 @@ GameObject:
   - component: {fileID: 1305409086}
   - component: {fileID: 1305409090}
   - component: {fileID: 1305409089}
-  - component: {fileID: 1305409088}
-  - component: {fileID: 1305409087}
   m_Layer: 5
   m_Name: Controlstext
   m_TagString: Untagged
@@ -122419,51 +122448,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305409085}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.95009, z: 1}
+  m_LocalScale: {x: 1, y: 0.95009005, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 975674663}
+  m_Father: {fileID: 1913999972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 146, y: 244}
+  m_AnchoredPosition: {x: 99.999985, y: 0.000015258789}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1305409087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1305409085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af1dec9558185147b11c64b5a29c1d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InstructionTexts
-  instructionText: {fileID: 0}
-  dialogueCanvasGroup: {fileID: 0}
-  fadeTime: 2
-  instructions: []
-  controlsText: {fileID: 1305409089}
-  controlsCanvasGroup: {fileID: 1305409088}
-  controlsVisibleTime: 40
-  controlsFadeTime: 2
-  continuePrompt: {fileID: 0}
---- !u!225 &1305409088
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1305409085}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &1305409089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148885,9 +148881,8 @@ MonoBehaviour:
   - AND A SOUND SENSOR THAT REACTS TO ANY NEARBY MOVING ENTITES
   - ' IT WILL BEEP FASTER AND GLOW RED IF SOMETHING ENTERS YOUR PROXIMITY'
   - WELL THEN, GET TO WORK!
-  controlsText: {fileID: 1305409089}
-  controlsCanvasGroup: {fileID: 1305409088}
-  controlsVisibleTime: 40
+  controlsCanvasGroup: {fileID: 1913999973}
+  controlsVisibleTime: 10
   controlsFadeTime: 2
   continuePrompt: {fileID: 548346284}
 --- !u!114 &1807363940
@@ -149997,6 +149992,55 @@ MonoBehaviour:
   pauseMenuPanel: {fileID: 938884803}
   settingsPanel: {fileID: 472834614}
   controlsPanel: {fileID: 0}
+--- !u!1 &1913999971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1913999972}
+  - component: {fileID: 1913999973}
+  m_Layer: 5
+  m_Name: ControlsPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1913999972
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913999971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1305409086}
+  m_Father: {fileID: 975674663}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -814, y: 244}
+  m_SizeDelta: {x: 200, y: 47.5045}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1913999973
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913999971}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1921301879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152192,3 +152236,4 @@ SceneRoots:
   - {fileID: 1622935186}
   - {fileID: 461101677}
   - {fileID: 1687110787}
+  - {fileID: 451310114}
