@@ -19,9 +19,6 @@ public class InstructionTexts : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        Time.timeScale = 0f;
         StartCoroutine(PlayInstructions());
         // Show controls
         if (controlsText != null && controlsCanvasGroup != null)
@@ -56,6 +53,7 @@ public class InstructionTexts : MonoBehaviour
         }
         dialogueCanvasGroup.alpha = 0;
     }
+ 
     IEnumerator ShowControls()
     {
         // make sure it's visible first
