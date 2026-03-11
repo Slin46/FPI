@@ -13531,6 +13531,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  BarrierWall: {fileID: 0}
 --- !u!136 &280545202
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15921,6 +15922,14 @@ MonoBehaviour:
   wanderRadius: 15
   wanderMinDistance: 7
   idleTime: 2
+  anim: {fileID: 0}
+  isWalking: 0
+  isRunning: 0
+  isRoar: 0
+  roarSound: {fileID: 0}
+  stuckCheckTime: 5
+  minMoveDistance: 5
+  teleportDistanceFromPlayer: 30
 --- !u!195 &488230248
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -105438,6 +105447,14 @@ MonoBehaviour:
   wanderRadius: 15
   wanderMinDistance: 7
   idleTime: 2
+  anim: {fileID: 0}
+  isWalking: 0
+  isRunning: 0
+  isRoar: 0
+  roarSound: {fileID: 0}
+  stuckCheckTime: 5
+  minMoveDistance: 5
+  teleportDistanceFromPlayer: 30
 --- !u!54 &1596110309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -117634,8 +117651,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   cameraFlash: 0
+  cameraFlashsound: 0
   cameraCooldown: 1.5
   flashPosition: {x: 0, y: 0, z: 0}
+  BarrierWall: {fileID: 0}
 --- !u!23 &1709213510
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -151323,6 +151342,14 @@ MonoBehaviour:
   wanderRadius: 10
   wanderMinDistance: 4
   idleTime: 2
+  anim: {fileID: 0}
+  isWalking: 0
+  isRunning: 0
+  isRoar: 0
+  roarSound: {fileID: 0}
+  stuckCheckTime: 5
+  minMoveDistance: 5
+  teleportDistanceFromPlayer: 30
 --- !u!1001 &2132757491
 PrefabInstance:
   m_ObjectHideFlags: 0
