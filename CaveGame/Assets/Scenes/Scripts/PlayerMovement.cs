@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     private AudioSource walking;
     private AudioSource running;
+
+    public GameObject BarrierWall;
 
     private void Awake()
     {
@@ -111,5 +114,12 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
         
     }
-    
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == BarrierWall)
+        {
+            //Load EndScreen
+            SceneManager.LoadScene("EndScreen");
+        }
+    }
 }

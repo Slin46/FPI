@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NightVisionCam : MonoBehaviour
 {
@@ -15,9 +16,11 @@ public class NightVisionCam : MonoBehaviour
     public Camera scannerCam;
     public LayerMask paintingLayer;
     public bool cameraFlash;
+    public bool cameraFlashsound;
     public float cameraCooldown = 1.5f;
     private bool canTakePhoto = true;
     public Vector3 flashPosition;
+    public GameObject BarrierWall;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,6 +31,7 @@ public class NightVisionCam : MonoBehaviour
     void Update()
     {
         TakePhoto();
+        WinCon();
     }
 
     public void TakePhoto()
@@ -42,7 +46,7 @@ public class NightVisionCam : MonoBehaviour
             Ray ray = scannerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
             flashAudio.Play();
-            //cameraFlash = true;
+            cameraFlashsound = true;
             if(!cameraFlash)
             {
                 StartCoroutine(Flash());
@@ -85,10 +89,12 @@ public class NightVisionCam : MonoBehaviour
     }
     IEnumerator Flash()
     {
+        cameraFlash = true;
         lightFlash.intensity = 2f;
         yield return new WaitForSeconds(duration);
         lightFlash.intensity = 0f;
         cameraFlash = false;
+        cameraFlashsound = false;
     }
     public void UpdatePhotoUI()
     {
@@ -101,4 +107,18 @@ public class NightVisionCam : MonoBehaviour
         yield return new WaitForSeconds(cameraCooldown);
         canTakePhoto = true;
     }
+    public void WinCon()
+    {
+        if(photosTaken == 5)
+        {
+            Debug.Log("Job complete, get out of the cave!!");
+            Collider col = BarrierWall.GetComponent<Collider>();
+            if(col != null )
+            {
+                col.enabled = true;
+                //Debug.Log(BarrierWall.name + "Collider active" + col.enabled);
+            }
+        }
+    }
+   
 }

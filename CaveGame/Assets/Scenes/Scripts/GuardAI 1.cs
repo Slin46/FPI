@@ -20,7 +20,7 @@ public class GuardAI : MonoBehaviour
     [Header("Detection")]
     public float detectionRange = 10f;
     public float losePlayerRange = 15f;
-    public float soundRange = 25f; //if player flashes camera and AI is with range, stalk will start
+    public float soundRange = 100f; //if player flashes camera and AI is with range, stalk will start
 
     [Header("Patrol")]
     public float waypointTolerance = 1f;
@@ -55,13 +55,21 @@ public class GuardAI : MonoBehaviour
     private bool isRoaring = false;
     public AudioSource roarSound;
 
+    [Header("Stuck Detection")]
+    public float stuckCheckTime = 5f;
+    public float minMoveDistance = 5f;
+    public float teleportDistanceFromPlayer = 30f;
+
+    private Vector3 lastPosition;
+    private float stuckTimer = 0f;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         ChangeState(AIState.Patrol);
         anim = GetComponent<Animator>();
         //GameObject Ncam = GameObject.FindGameObjectWithTag("Camera");
-        //NightVisionCam camScript = Ncam.GetComponent<NightVisionCam>();
+        //mScript = FindObjectOfType<NightVisionCam>();
     }
 
     void Update()
@@ -82,14 +90,59 @@ public class GuardAI : MonoBehaviour
 
             case AIState.Stalk:
                 UpdateStalk();
-                Debug.Log("In Stalk");
+                //Debug.Log("In Stalk");
                 break;
         }
+        CheckIfStuck();
     }
 
-  
+    //This doesn't really work but it's here now just incase
+    void CheckIfStuck()
+    {
+        if (currentState == AIState.Chase)
+            return;
+
+        if (agent.velocity.magnitude <0.1f)
+        {
+            stuckTimer += Time.deltaTime;
+        }
+        else
+        {
+            stuckTimer = 0f;
+        }
+        if(stuckTimer >= stuckCheckTime)
+        {
+            TeleportIfStuck();
+            stuckTimer = 0f;
+        }
+        lastPosition = transform.position;
+    }
+    void TeleportIfStuck()
+    {
+        for (int i =0; i <30; i++)
+        {
+            Vector3 randomDirection = Random.insideUnitSphere * patrolRadius;
+            randomDirection.y = 0;
+            Vector3 newPos = player.position + randomDirection;
+
+            if (Vector3.Distance(newPos, player.position) < teleportDistanceFromPlayer)
+                continue;
+
+            NavMeshHit hit;
+            if(NavMesh.SamplePosition(newPos, out hit, patrolRadius, NavMesh.AllAreas))
+            {
+                agent.Warp(hit.position);
+                Debug.Log("AI was stuck and teleported");
+                return;
+            }
+        }
+            
+        
+
+
+    }
     // STATE LOGIC
-    
+
 
     void UpdatePatrol()
     {
@@ -99,13 +152,14 @@ public class GuardAI : MonoBehaviour
             return;
         }
 
-        if (camScript.cameraFlash && Vector3.Distance(transform.position, camScript.flashPosition) <= soundRange)
+        if (currentState == AIState.Patrol && camScript.cameraFlash && Vector3.Distance(transform.position, camScript.flashPosition) <= soundRange)
         {
+            Debug.Log("Heard player flash");
             ChangeState(AIState.Stalk);
             return;
         }
         //if destination is reached pick a new random one
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f))
         {
             anim.SetBool("isWalking", false);
             idleTimer -= Time.deltaTime;
@@ -163,6 +217,9 @@ public class GuardAI : MonoBehaviour
                     continue;
 
                 agent.SetDestination(hit.position);
+                if (agent.pathStatus == NavMeshPathStatus.PathPartial)
+                    return;
+
                 lastDestination = hit.position;
                 return;
             }
@@ -189,10 +246,10 @@ public class GuardAI : MonoBehaviour
         //if player gets out of range go back to patroling 
         //if players gets withing vision go to chase
         agent.SetDestination(camScript.flashPosition);
-
-        if (CanSeePlayer())
+        Debug.Log("Set destination to flash pos");
+        if (CanSeePlayer() && !isRoaring)
         {
-            ChangeState(AIState.Chase);
+            StartCoroutine(RoarThenChase());
             return;
         }
 

@@ -82,4 +82,5 @@ public class Sliders : MonoBehaviour
         SetSensitivity(PlayerSettings.mouseSensitivity);
 
     }
+
 }
