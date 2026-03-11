@@ -241,8 +241,8 @@ public class GuardAI : MonoBehaviour
 
     void UpdateStalk()
     {
-        //agent.SetDestination(player.position);
-        //follow player slowly instead of random patrol
+        //when camera goes off, if AI in range, go to the flash point
+        //walk to where the photo was taken instead of random patrol
         //if player gets out of range go back to patroling 
         //if players gets withing vision go to chase
         agent.SetDestination(camScript.flashPosition);
@@ -298,6 +298,9 @@ public class GuardAI : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0f;
             //freeze player
             //turn to face monster 
             //play monster roar
