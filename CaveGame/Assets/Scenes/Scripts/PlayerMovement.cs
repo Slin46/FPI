@@ -122,8 +122,8 @@ public class PlayerMovement : MonoBehaviour
             Cursor.visible = true;
             Time.timeScale = 0f;
 
-            //Load EndScreen
-            SceneManager.LoadScene("EndScreen");
+            //Load WinScreen
+            SceneManager.LoadScene("WinScreen");
         }
     }
 }

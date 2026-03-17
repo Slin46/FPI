@@ -11,6 +11,8 @@ public class NightVisionCam : MonoBehaviour
     public string capturedTag = "Untagged";
     public float duration = 0.5f;
     public TextMeshProUGUI photoCounter;
+    public GameObject redbar;
+    public GameObject Task2;
     public Light lightFlash;
     public AudioSource flashAudio;
     public Camera scannerCam;
@@ -24,7 +26,8 @@ public class NightVisionCam : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-      
+      redbar.SetActive(false);
+      Task2.SetActive(false);
     }
 
     // Update is called once per frame
@@ -111,6 +114,8 @@ public class NightVisionCam : MonoBehaviour
     {
         if(photosTaken == 5)
         {
+            redbar.SetActive(true);
+            Task2.SetActive(true);
             Debug.Log("Job complete, get out of the cave!!");
             Collider col = BarrierWall.GetComponent<Collider>();
             if(col != null )
