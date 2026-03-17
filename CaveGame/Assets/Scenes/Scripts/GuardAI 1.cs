@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
+
 public class GuardAI : MonoBehaviour
 {
     public enum AIState
@@ -15,7 +16,11 @@ public class GuardAI : MonoBehaviour
 
     [Header("References")]
     public Transform player;
+    public Camera playerCam;
+    public GameObject playerBody;
+    public GameObject deathCam;
     public NightVisionCam camScript;
+    public AudioListener monsterListener;
 
     [Header("Detection")]
     public float detectionRange = 10f;
@@ -49,6 +54,7 @@ public class GuardAI : MonoBehaviour
     public bool isWalking = false;
     public bool isRunning = false;
     public bool isRoar = false;
+    //public bool isDead = false;
 
     [Header("Roar Settings")]
     private float roarDuration = 4f;
@@ -63,11 +69,17 @@ public class GuardAI : MonoBehaviour
     private Vector3 lastPosition;
     private float stuckTimer = 0f;
 
+    public AudioSource runSound;
+    public AudioSource breathingSound;
+    public float chaseTimer = 0f;
+    public float maxChaseTime = 30f;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         ChangeState(AIState.Patrol);
         anim = GetComponent<Animator>();
+        monsterListener.enabled = false;
         //GameObject Ncam = GameObject.FindGameObjectWithTag("Camera");
         //mScript = FindObjectOfType<NightVisionCam>();
     }
@@ -176,7 +188,8 @@ public class GuardAI : MonoBehaviour
     {
         isRoaring = true;
         agent.isStopped = true;
-
+        agent.velocity = Vector3.zero;
+       // agent.ResetPath();
         anim.SetBool("isWalking", false);
         anim.SetBool("isRunning", false);
         anim.SetBool("isRoar", true);
@@ -231,10 +244,23 @@ public class GuardAI : MonoBehaviour
         anim.SetBool("isRunning", true);
         anim.SetBool("isWalking", false);
         agent.SetDestination(player.position);
+        if (!runSound.isPlaying)
+            runSound.Play();
 
+        if (!breathingSound.isPlaying)
+            breathingSound.Play();
+
+        chaseTimer += Time.deltaTime;
+        if(chaseTimer >= maxChaseTime)
+        {
+            Debug.Log("AI is slowing down");
+            agent.speed = stalkSpeed;
+        }
         if (!CanSeePlayer() && DistanceToPlayer() > losePlayerRange)
         {
             anim.SetBool("isWalking", true);
+            runSound.Stop();
+            breathingSound.Stop();
             ChangeState(AIState.Patrol);
         }
     }
@@ -271,15 +297,18 @@ public class GuardAI : MonoBehaviour
             case AIState.Patrol:
                 agent.speed = patrolSpeed;
                 idleTimer = 0f;
+                chaseTimer = 0f;
                 Wander();
                 break;
 
             case AIState.Chase:
                 agent.speed = chaseSpeed;
+                chaseTimer = 0f;
                 break;
 
             case AIState.Stalk:
                 agent.speed = stalkSpeed;
+                chaseTimer = 0f;
                 break;
         }
     }
@@ -298,16 +327,38 @@ public class GuardAI : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            //freeze player
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            Time.timeScale = 0f;
-            //freeze player
             //turn to face monster 
+            playerCam.enabled = false;
+            playerBody.SetActive(false);
+            monsterListener.enabled = true;
+            deathCam.SetActive(true);
+            StartCoroutine(RoarThenDie());
             //play monster roar
-            Debug.Log("Player caught, loading end screen");
-            //Load EndScreen
-            SceneManager.LoadScene("EndScreen");
+
 
         }
+    }
+    IEnumerator RoarThenDie()
+    {
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
+       // agent.ResetPath();
+        Debug.Log("running roar then die");
+        
+        roarSound.Play();
+        anim.SetBool("isWalking", false);
+        anim.SetBool("isRunning", false);
+        anim.SetTrigger("Die");
+         
+
+        yield return new WaitForSecondsRealtime(3f);
+        Time.timeScale = 0f;
+        Debug.Log("Player caught, loading end screen");
+        //Load EndScreen
+        SceneManager.LoadScene("EndScreen");
+       
     }
 }
