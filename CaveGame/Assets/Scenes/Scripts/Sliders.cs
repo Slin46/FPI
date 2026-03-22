@@ -31,8 +31,9 @@ public class Sliders : MonoBehaviour
 
     public void SetMasterVolume(float value)
     {
-        AudioListener.volume = value;
-        PlayerSettings.masterVolume = value;   // save to static class
+        PlayerSettings.masterVolume = value;
+
+        mixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);
 
         if (masterText != null)
             masterText.text = Mathf.RoundToInt(value * 100).ToString();
@@ -42,6 +43,8 @@ public class Sliders : MonoBehaviour
     {
         PlayerSettings.musicVolume = value;
 
+        mixer.SetFloat("MusicVolume", Mathf.Log10(value) * 20);
+
         if (musicText != null)
             musicText.text = Mathf.RoundToInt(value * 100).ToString();
     }
@@ -49,6 +52,8 @@ public class Sliders : MonoBehaviour
     public void SetSFXVolume(float value)
     {
         PlayerSettings.sfxVolume = value;
+
+        mixer.SetFloat("SFXVolume", Mathf.Log10(value) * 20);
 
         if (sfxText != null)
             sfxText.text = Mathf.RoundToInt(value * 100).ToString();

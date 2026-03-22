@@ -591,7 +591,7 @@ MonoBehaviour:
   musicSlider: {fileID: 544194050}
   sfxSlider: {fileID: 968632266}
   sensitivitySlider: {fileID: 170277855}
-  mixer: {fileID: 0}
+  mixer: {fileID: 24100000, guid: 855394387e409a446bad1ac481fa2f4a, type: 2}
 --- !u!4 &331022111
 Transform:
   m_ObjectHideFlags: 0
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1443451172}
   m_HandleRect: {fileID: 356853101}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5
@@ -1060,11 +1060,11 @@ AudioSource:
   m_GameObject: {fileID: 478070156}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4607913556201705794, guid: 855394387e409a446bad1ac481fa2f4a, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 3a6dbe490ba82e0478576605613587cc, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.1
   m_Pitch: 0.64
   Loop: 1
   Mute: 0
@@ -1157,11 +1157,11 @@ AudioSource:
   m_GameObject: {fileID: 478070156}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4607913556201705794, guid: 855394387e409a446bad1ac481fa2f4a, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: a43df1ba2f6e10042b587db30790732e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.164
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1679,7 +1679,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 668056037}
   m_HandleRect: {fileID: 177929885}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5
@@ -2609,7 +2609,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1277864901}
   m_HandleRect: {fileID: 173751665}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5
@@ -3491,7 +3491,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'EXIT
+  m_text: 'EXIT GAME
 
 '
   m_isRightToLeft: 0
@@ -3559,7 +3559,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.62572086, y: 0, z: 138.15625, w: 0}
+  m_margin: {x: 0.62572086, y: 0, z: 46.341164, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
